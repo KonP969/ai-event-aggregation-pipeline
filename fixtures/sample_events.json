@@ -1,0 +1,10 @@
+[
+  {"source": "crossweb", "title": "Trojmiejski Meetup: AI & Data Engineering", "url": "https://crossweb.pl/wydarzenie/meetup-ai", "city": "Gdansk", "start": "2026-06-10 18:00", "is_free": true, "subcategory": "meetup"},
+  {"source": "evenea", "title": "Data Science Summit 2026", "url": "https://evenea.pl/dss", "city": "Warszawa", "start": "2026-06-12 09:00", "end": "2026-06-13 17:00", "price_min": 499, "subcategory": "conference"},
+  {"source": "crossweb", "title": "Spotkanie Power BI Krakow", "url": "https://crossweb.pl/wydarzenie/pbi-krakow", "city": "Krakow", "start": "2026-06-11 18:00", "is_free": true},
+  {"source": "trojmiasto", "title": "Bal dla dzieci - W krainie morz", "url": "https://trojmiasto.pl/imprezy/bal", "city": "Gdansk", "venue": "Galeria Metropolia", "start": "2026-06-07 10:00", "is_free": true, "subcategory": "dla dzieci"},
+  {"source": "trojmiasto", "title": "Mecz Lechia Gdansk - Legia Warszawa (Ekstraklasa)", "url": "https://trojmiasto.pl/imprezy/mecz", "city": "Gdansk", "start": "2026-06-08 17:00", "subcategory": "sport"},
+  {"source": "ebilet", "title": "Dawid Podsiadlo - koncert", "url": "https://ebilet.pl/podsiadlo", "city": "Sopot", "venue": "Opera Lesna", "artist": "Dawid Podsiadlo", "start": "2026-06-15 19:00", "price_min": 120, "subcategory": "koncert"},
+  {"source": "ticketmaster", "title": "Sting - 3.0 Tour", "url": "https://ticketmaster.pl/sting", "city": "Warszawa", "venue": "PGE Narodowy", "artist": "Sting", "start": "2026-10-15 20:00", "price_min": 250, "subcategory": "koncert"},
+  {"source": "ebilet", "title": "Lokalny Cover Band - tribute", "url": "https://ebilet.pl/cover", "city": "Poznan", "artist": "Cover Band", "start": "2026-06-10 20:00", "price_min": 40, "subcategory": "koncert"}
+]

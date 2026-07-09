@@ -1,0 +1,7 @@
+httpx>=0.27
+beautifulsoup4>=4.12
+python-dateutil>=2.9
+PyYAML>=6.0
+firecrawl-py>=4.0      # adapter Firecrawl (uzywany przez firecrawl_cli.py)
+slack_sdk>=3.27        # tylko faza 2 (post przez bot token); faza 1 -> Slack MCP
+pytest>=8.0

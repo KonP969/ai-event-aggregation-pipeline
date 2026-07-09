@@ -1,0 +1,171 @@
+# Rejestr zrodel. Dodanie/wylaczenie zrodla = edycja tego pliku, bez ruszania kodu.
+# method: python | firecrawl | fixture     fallback: firecrawl (opcjonalny)
+# enabled: false -> zrodlo pomijane w runie bez zmian w kodzie.
+#
+# UWAGA: wszystkie zewnetrzne zrodla sa domyslnie wylaczone (enabled: false).
+# Wlaczaj tylko zrodla, do ktorych masz uprawnienia — patrz docs/responsible-use.md.
+sources:
+  - id: crossweb
+    name: "Crossweb"
+    streams: [ai_digital]
+    method: python
+    fallback: firecrawl
+    enabled: false
+    base_url: "https://crossweb.pl"
+    listing_url: "https://crossweb.pl/wydarzenia/"
+    parser: python_crossweb
+    fallback_parser: firecrawl_json_events   # fallback dla stron renderowanych JS / niedostepnych bezposrednio
+    firecrawl_prompt: "Wyciagnij wydarzenia branzowe IT/tech/AI/data/digital/programowanie: nazwa, data jako ISO YYYY-MM-DD, miasto, link do wydarzenia."
+    firecrawl_subcategory: "meetup"
+    rate_limit_seconds: 2
+
+  # Meetup — meetupy AI/tech (JSON-LD). Listing filtrowany keywords=AI + miasto.
+  # Drugie zrodlo ai_digital. classify odsiewa nie-AI (English Meetup itp.).
+  - id: meetup
+    name: "Meetup (AI/tech Trojmiasto)"
+    streams: [ai_digital]
+    method: python
+    enabled: false
+    fallback: firecrawl                       # fallback renderujacy, gdy bezposredni request nie zwraca tresci
+    fallback_parser: firecrawl_json_events
+    default_city: "Trojmiasto"                # listing Gdansk-filtered -> Trojmiasto
+    force_default_city: true                  # ignoruj "Online" z UI Meetup (listing juz Gdansk-filtered)
+    firecrawl_prompt: "Wyciagnij wszystkie meetupy AI/tech/data widoczne na stronie: nazwa wydarzenia, data jako ISO YYYY-MM-DD, link."
+    base_url: "https://www.meetup.com"
+    listing_url: "https://www.meetup.com/find/?keywords=AI&location=pl--Gda%C5%84sk&source=EVENTS"
+    parser: python_meetup
+    rate_limit_seconds: 3
+
+  # Trojmiasto.pl rozbity na dedykowane kategorie z force_category — pewna klasyfikacja
+  # (ze zrodla, nie z tytulu) + lepszy recall. Sport-rekreacja pominiety (mecze).
+  - id: trojmiasto-koncerty
+    name: "Trojmiasto.pl Koncerty"
+    streams: [concert]
+    force_category: concert
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/koncerty/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-spektakle
+    name: "Trojmiasto.pl Spektakle"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/spektakle/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-wystawy
+    name: "Trojmiasto.pl Wystawy i spotkania"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/wystawy-spotkania/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-film
+    name: "Trojmiasto.pl Film i kino"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/film-kino/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-rozrywka
+    name: "Trojmiasto.pl Imprezy rozrywkowe"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/imprezy-rozrywkowe/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-okolicznosciowe
+    name: "Trojmiasto.pl Imprezy okolicznosciowe (festyny)"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/okolicznosciowe/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  - id: trojmiasto-kulinaria
+    name: "Trojmiasto.pl Kulinaria"
+    streams: [culture_family]
+    force_category: culture_family
+    method: python
+    enabled: false
+    base_url: "https://www.trojmiasto.pl"
+    listing_url: "https://www.trojmiasto.pl/imprezy/kulinaria/"
+    parser: python_trojmiasto
+    rate_limit_seconds: 2
+
+  # eBilet — ogolnopolskie koncerty (world-class -> cala Polska). JSON-LD, kuratorowana lista TOP.
+  - id: ebilet
+    name: "eBilet Muzyka (ogolnopolskie koncerty)"
+    streams: [concert]
+    method: python
+    enabled: false
+    base_url: "https://www.ebilet.pl"
+    listing_url: "https://www.ebilet.pl/muzyka/"
+    parser: python_ebilet
+    rate_limit_seconds: 2
+
+  # LiveNation — wielkie trasy miedzynarodowe (Foo Fighters, Bad Bunny, Sting...). JS-rendered,
+  # wiec Firecrawl JSON extraction (~5 kredytow/run). Wymaga FIRECRAWL_API_KEY; brak -> pominiete.
+  - id: livenation
+    name: "LiveNation (trasy miedzynarodowe)"
+    streams: [concert]
+    method: firecrawl
+    enabled: false
+    base_url: "https://www.livenation.pl"
+    listing_url: "https://www.livenation.pl/event/allevents"
+    parser: firecrawl_json_events
+    firecrawl_prompt: "Wyciagnij liste wszystkich koncertow/wydarzen: nazwa artysty/wydarzenia, data jako ISO YYYY-MM-DD, miasto, nazwa obiektu (areny/klubu) i link do wydarzenia."
+    firecrawl_subcategory: "koncert"
+    rate_limit_seconds: 3
+
+  - id: evenea
+    name: "Evenea"
+    streams: [ai_digital]
+    method: firecrawl
+    enabled: false
+    base_url: "https://app.evenea.pl"
+    listing_url: "https://evenea.pl/pl/wydarzenia"
+    parser: generic_firecrawl
+    rate_limit_seconds: 3
+
+  - id: going
+    name: "Going"
+    streams: [culture_family, concert]
+    method: firecrawl
+    enabled: false
+    base_url: "https://goingapp.pl"
+    listing_url: "https://goingapp.pl/trojmiasto"
+    parser: generic_firecrawl
+    rate_limit_seconds: 3
+
+  - id: ticketmaster
+    name: "Ticketmaster.pl"
+    streams: [concert]
+    method: firecrawl
+    enabled: false
+    base_url: "https://www.ticketmaster.pl"
+    listing_url: "https://www.ticketmaster.pl/category/10001/koncerty"
+    parser: generic_firecrawl
+    rate_limit_seconds: 3

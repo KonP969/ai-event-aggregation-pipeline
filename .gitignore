@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.venv/
+venv/
+# stan (SQLite) — generowany lokalnie, ma persystowac miedzy runami ale nie w git
+data/*.db
+data/*.sqlite
+# artefakty runow
+reports/run-*.json
+reports/digest-*.md
+# DIGEST.md generowany lokalnie przez run; publikujemy tylko examples/sample_digest.md
+DIGEST.md
+# lokalne override i sekrety
+config/sources.local.yaml
+# smieci
+*.stackdump

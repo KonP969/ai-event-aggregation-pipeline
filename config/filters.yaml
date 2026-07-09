@@ -1,0 +1,76 @@
+# Filtry i progi (ST-103). Zmiana tych wartosci zmienia output bez edycji kodu.
+date_window_days: 14                # domyslne okno (ai_digital, culture_family)
+concert_window_days: 30             # koncerty lokalne -> bilety schodza z wyprzedzeniem
+national_concert_window_days: 365   # koncerty world-class (national_scope) -> dluzszy horyzont
+max_per_stream: 0                   # 0 = bez limitu (pokaz wszystko w oknie)
+firecrawl_budget_per_run: 30        # limit kredytow Firecrawl na run (ST-125)
+empty_run_message: true             # wyslij krotki komunikat gdy wszystko puste (ST-121)
+timezone: "Europe/Warsaw"
+
+# Trojmiasto wlasciwe (culture_family: scisle te miasta; "trojmiasto" = agregat ze zrodel)
+tricity: ["gdansk", "gdynia", "sopot", "trojmiasto"]
+
+# "Surroundings" dla ai_digital (open question 3 z PRD) — szerszy promien
+tricity_surroundings: ["gdansk", "gdynia", "sopot", "trojmiasto", "pruszcz gdanski",
+                       "rumia", "reda", "wejherowo", "tczew"]
+
+# Wieksze miasta PL — ai_digital rozszerza sie tu tylko gdy wydarzenie "duze"
+major_cities: ["warszawa", "krakow", "wroclaw", "poznan", "katowice", "lodz", "gdansk", "gdynia"]
+
+# Heurystyka "duze wydarzenie" (ai_digital -> ogolnopolskie, §5.4)
+large_event:
+  min_days: 2                       # multi-day = duze
+  known_brands: ["infoshare", "code europe", "4developers", "data science summit",
+                 "the hack summit", "pyconpl", "devoxx"]
+
+# Heurystyka "world-class artist" (concert -> ogolnopolski, §5.4)
+world_class:
+  large_venues: ["ergo arena", "tauron arena", "pge narodowy", "atlas arena",
+                 "spodek", "torwar", "stadion", "narodowy", "stadion energa"]
+  allowlist: ["sting", "metallica", "coldplay", "dua lipa", "imagine dragons",
+              "ed sheeran", "the weeknd", "rammstein", "guns n roses"]
+  # Zrodla zaufane jako ogolnopolskie: kuratorowana lista TOP koncertow (eBilet Muzyka).
+  # Koncert z takiego zrodla spoza Trojmiasta jest traktowany jak world-class (national).
+  trusted_sources: ["ebilet", "livenation"]
+
+# Wykluczenia dla culture_family — mecze i WSZELKIE rozgrywki ligowe (F7/ST-114)
+exclusions:
+  keywords: ["mecz", "ekstraklasa", "ligowy", "ligowa", "ligowe", "puchar polski",
+             "kolejka ligi", "sparing", "derby", " liga ", "rozgrywki"]
+  subcategories: ["sport", "pilka nozna", "football", "mecze"]
+  adult_only: ["18+", "tylko dla doroslych", "strip", "adults only"]
+
+# Kontekst rodziny (EA) — stream culture_family pod katem wydarzen z udzialem rodziny
+family:
+  children_ages: [8, 13]          # corka ~7-9, syn ~13 (aktualizuj wg potrzeby)
+  kids_keywords: ["dla dzieci", "rodzinny", "rodzinne", "bajka", "familijny", "maluch",
+                  "spektakl dla dzieci", "teatr dla dzieci", "warsztaty dla dzieci",
+                  "ferie", "animacje", "gry i zabawy", "park rozrywki"]
+
+# Slowa-klucze klasyfikacji (ST-112)
+classify:
+  ai_digital: ["ai", "ml", "sztuczna inteligencja", "machine learning", "deep learning",
+               "llm", "genai", "agentic", "rag", "gemini", "copilot", "data", "dane",
+               "analityka", "analytics", "data engineering", "data science", "bigquery",
+               "python", "hackathon", "hackerspace", "devops", "mlops", "cloud", "aws",
+               "programowanie", "developer", "tech", "digital", "marketing", "product",
+               "produkt", "produktowe", "ux", "startup", "saas", "no-code", "automatyzacj"]
+  concert: ["koncert", "concert", "trasa", "tour", "live", "unplugged", "recital",
+            "dj set", "festiwal muzyczny"]
+  culture_family: ["spektakl", "teatr", "wystawa", "dla dzieci", "rodzinny", "warsztaty",
+                   "festiwal", "musical", "bal", "kabaret", "stand-up", "wycieczka"]
+
+# Wagi rankingu (ST-117)
+scoring:
+  date_proximity_weight: 1.0
+  topical_match_weight: 1.0
+  source_trust_weight: 0.5
+
+# Zaufanie do zrodel (0-1) — wykorzystywane w rankingu i merge przy dedup
+source_trust:
+  crossweb: 0.9
+  trojmiasto: 0.85
+  ebilet: 0.8
+  ticketmaster: 0.85
+  evenea: 0.7
+  going: 0.6
