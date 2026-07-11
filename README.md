@@ -2,6 +2,8 @@
 
 [![tests](https://github.com/KonP969/ai-event-aggregation-pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/KonP969/ai-event-aggregation-pipeline/actions/workflows/tests.yml)
 
+**🇬🇧 English** · [🇵🇱 Polski](README.pl.md)
+
 **What it does, in plain terms:** it finds events matching the topics, locations and
 time window you care about, sorts them into categories, and delivers a tidy digest to
 **Slack** on a schedule — a ready-made shortlist of nice things to do. It is designed
