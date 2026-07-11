@@ -46,10 +46,10 @@ messy markup. Everything else is plain Python rules.
 | `scrapers/` | Source adapters: Python parsers, Firecrawl adapter, fixture loader, registry |
 | `scrapers/firecrawl_cli.py` | Thin CLI over the Firecrawl API (JS-rendered page extraction) |
 | `pipeline/` | `normalize`, `classify`, `filter_rules`, `dedup`, `rank`, `models` |
-| `state/` | SQLite persistence — tracks new vs. updated events between runs |
+| `state/` | SQLite persistence, tracks new vs. updated events between runs |
 | `delivery/` | Digest formatting and delivery (Markdown / Slack) |
 | `discovery/` | Optional source discovery (`--discover`), returns candidates for review |
-| `config/sources.yaml` | Source registry — add/disable a source without touching code |
+| `config/sources.yaml` | Source registry; add/disable a source without touching code |
 | `config/filters.yaml` | Time windows, keywords, world-class list |
 
 ## Deterministic vs. probabilistic
@@ -64,4 +64,4 @@ messy markup. Everything else is plain Python rules.
 The same `orchestrator.py` entrypoint can be driven by a scheduler or an AI coding
 agent on a cadence (e.g. daily): it scrapes enabled sources, builds the digest, and
 writes `DIGEST.md`. This public repository does not include an active scheduled
-integration — its "proof of life" is the CI job running the offline fixtures demo.
+integration. Its "proof of life" is the CI job running the offline fixtures demo.
