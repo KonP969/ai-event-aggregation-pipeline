@@ -2,9 +2,14 @@
 
 [![tests](https://github.com/KonP969/ai-event-aggregation-pipeline/actions/workflows/tests.yml/badge.svg)](https://github.com/KonP969/ai-event-aggregation-pipeline/actions/workflows/tests.yml)
 
-A configurable, AI-assisted pipeline that turns raw event listings into a ranked,
-deduplicated digest. It normalizes, classifies, filters, deduplicates and ranks
-events into three streams, then renders a Markdown digest:
+**What it does, in plain terms:** it finds events matching the topics, locations and
+time window you care about, sorts them into categories, and delivers a tidy digest to
+**Slack** on a schedule — a ready-made shortlist of nice things to do. It is designed
+to run as a **Claude Code routine**
+(see [Works best as a Claude Code routine](#works-best-as-a-claude-code-routine)).
+
+Under the hood it is a configurable, AI-assisted pipeline that turns raw event
+listings into a ranked, deduplicated digest across three streams:
 
 - **ai_digital** — industry AI / data / digital meetups and conferences
 - **culture_family** — culture and family events (excludes sport / league fixtures)
@@ -46,20 +51,55 @@ The same offline demo runs in CI on every push (see the badge above).
 scheduler / agent  ->  orchestrator.py  ->  source adapters (scrape enabled sources)
                                         ->  normalize -> classify -> filter
                                         ->  deduplicate -> rank
-                                        ->  DIGEST.md (Markdown digest)
+                                        ->  DIGEST.md  +  Slack digest
 ```
 
 On a cadence (e.g. daily), a scheduler or an AI coding agent runs the same
-`orchestrator.py` entrypoint: it scrapes the enabled sources, finds new events,
-runs them through the pipeline, and writes `DIGEST.md`. Python-native parsers handle
-JSON-LD and HTML; a Firecrawl adapter handles JS-rendered pages and acts as a
-fallback when a direct request returns no usable content. Optional source discovery
-(`--discover`) proposes new sources for manual review instead of scraping them
-automatically.
+`orchestrator.py` entrypoint: it scrapes the enabled sources, finds new events, runs
+them through the pipeline, and produces the digest — written to `DIGEST.md` and/or
+delivered to **Slack**. Python-native parsers handle JSON-LD and HTML; a Firecrawl
+adapter handles JS-rendered pages and acts as a fallback when a direct request
+returns no usable content. Optional source discovery (`--discover`) proposes new
+sources for manual review instead of scraping them automatically.
 
 > This public repository is a portfolio demonstration. It does **not** include an
 > active scheduled integration. Its "proof of life" is the CI job running the
 > offline fixtures demo.
+
+## Works best as a Claude Code routine
+
+The pipeline is designed to run unattended on a schedule — for example as a
+[Claude Code](https://www.anthropic.com/claude-code) routine that runs daily,
+refreshes the digest, and pushes it back to the repository and/or posts it to Slack.
+
+**Sample routine prompt:**
+
+```text
+Connect to the repository.
+
+Run: python orchestrator.py --dry-run
+Commit and push the refreshed report:
+  git add DIGEST.md
+  git commit -m "chore: update event calendar (routine)"
+  git push
+If orchestrator exits with a non-zero code, briefly note which source failed
+(from reports/run-*.json).
+```
+
+**Routine environment:**
+
+- **Setup script** (installs dependencies by name, before the agent starts):
+  ```bash
+  pip install httpx beautifulsoup4 python-dateutil pyyaml firecrawl-py
+  ```
+- **Environment variables:** `FIRECRAWL_API_KEY` for JS-rendered sources; optionally
+  `SLACK_BOT_TOKEN` for Slack delivery. Provide secrets through a secure secret store —
+  never in the prompt, the source config or committed files.
+- **Connectors:** Slack, if you want the digest delivered to a channel.
+
+To deliver to Slack instead of (or in addition to) committing `DIGEST.md`, drop
+`--dry-run` so the run delivers the digest. Enable only the sources you are authorized
+to use — see [Responsible use](#responsible-use).
 
 ## Live scraping (opt-in)
 
