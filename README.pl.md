@@ -4,24 +4,24 @@
 
 [🇬🇧 English](README.md) · **🇵🇱 Polski**
 
-**Co to robi, po ludzku:** znajduje wydarzenia pasujące do tematów, lokalizacji i dat,
-które Cię interesują, sortuje je do kategorii i cyklicznie dostarcza uporządkowany
-digest na **Slacka**. Gotowa krótka lista pomysłów na miłe spędzenie czasu. Uruchamiasz
-to jako **rutynę Claude Code**
+Pipeline zbiera wydarzenia z wielu źródeł, sprowadza je do wspólnego formatu, usuwa
+duplikaty i nietrafione wyniki, a następnie tworzy uporządkowany digest w Markdownie
+lub na **Slacku**. Może również działać cyklicznie jako **rutyna Claude Code**
 (patrz [Najlepiej działa jako rutyna Claude Code](#najlepiej-działa-jako-rutyna-claude-code)).
 
-Pod maską to konfigurowalny, wspierany przez AI pipeline, który zamienia surowe listy
-wydarzeń w uszeregowany, zdeduplikowany digest w trzech strumieniach:
+Wydarzenia są dzielone na trzy konfigurowalne strumienie:
 
 - **ai_digital** - branżowe wydarzenia AI / data / digital (konferencje, meetupy)
 - **culture_family** - wydarzenia kulturalne i rodzinne, bez sportu i rozgrywek ligowych
 - **concert** - koncerty, z oznaczeniem tras world-class o zasięgu ogólnopolskim
 
-Zbudowałem i przetestowałem pipeline na realnych polskich źródłach wydarzeń, zarówno
-JSON-LD, jak i stronach renderowanych JS. Wyrenderowany przykład:
+Pipeline został przetestowany na polskich źródłach wydarzeń, zarówno JSON-LD, jak i
+stronach renderowanych JS. Wyrenderowany przykład:
 [`examples/sample_digest.md`](examples/sample_digest.md), architektura:
 [`docs/architecture.md`](docs/architecture.md), pełna specyfikacja:
 [`documents/PRD.md`](documents/PRD.md).
+
+Przy implementacji, debugowaniu i testach korzystałem z Claude Code i Codex.
 
 ## Szybki start (demo offline, bez sieci i kluczy)
 
@@ -65,8 +65,8 @@ renderowane JS i przejmuje robotę, gdy bezpośredni request nie zwraca użytecz
 Opcjonalne discovery źródeł (`--discover`) proponuje nowe źródła do Twojego przeglądu,
 zamiast scrapować je automatycznie.
 
-> To publiczne repo to demo portfolio. Nie ma aktywnej integracji harmonogramu. Jego
-> dowodem życia jest zadanie CI, które uruchamia demo offline na fixtures.
+> Repozytorium nie zawiera aktywnej integracji z harmonogramem. Przy każdym pushu CI
+> uruchamia demo offline na danych przykładowych.
 
 ## Najlepiej działa jako rutyna Claude Code
 
