@@ -5,3 +5,4 @@ PyYAML>=6.0
 firecrawl-py>=4.0      # adapter Firecrawl (uzywany przez firecrawl_cli.py)
 slack_sdk>=3.27        # tylko faza 2 (post przez bot token); faza 1 -> Slack MCP
 pytest>=8.0
+tzdata>=2024.1; platform_system == "Windows"
