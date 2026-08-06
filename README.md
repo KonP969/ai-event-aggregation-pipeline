@@ -4,22 +4,24 @@
 
 **🇬🇧 English** · [🇵🇱 Polski](README.pl.md)
 
-**What it does, in plain terms:** it finds events that match the topics, locations and
-dates you care about, sorts them into categories, and delivers a tidy digest to
-**Slack** on a schedule. A ready-made shortlist of nice things to do. Run it as a
+The pipeline collects events from multiple sources, converts them into a common
+format, removes duplicates and irrelevant results, and produces a structured
+Markdown or **Slack** digest. It can also run on a schedule as a
 **Claude Code routine** (see [Works best as a Claude Code routine](#works-best-as-a-claude-code-routine)).
 
-Under the hood it is a configurable, AI-assisted pipeline that turns raw event
-listings into a ranked, deduplicated digest across three streams:
+Events are grouped into three configurable streams:
 
 - **ai_digital** for industry AI / data / digital meetups and conferences
 - **culture_family** for culture and family events, minus sport and league fixtures
 - **concert** for concerts, with world-class national tours flagged
 
-I built and tested it against real Polish event sources, both JSON-LD and JS-rendered
-pages. See a rendered example in [`examples/sample_digest.md`](examples/sample_digest.md),
-the design in [`docs/architecture.md`](docs/architecture.md), and the full spec in
+The pipeline has been tested against Polish event sources, including JSON-LD and
+JS-rendered pages. See a rendered example in
+[`examples/sample_digest.md`](examples/sample_digest.md), the design in
+[`docs/architecture.md`](docs/architecture.md), and the full spec in
 [`documents/PRD.md`](documents/PRD.md).
+
+I used Claude Code and Codex for implementation, debugging and testing.
 
 ## Quick start (offline demo, no network, no keys)
 
@@ -62,8 +64,8 @@ adapter handles JS-rendered pages and takes over when a direct request returns n
 usable content. Optional source discovery (`--discover`) proposes new sources for you
 to review instead of scraping them automatically.
 
-> This public repo is a portfolio demo. It has no active scheduled integration. Its
-> proof of life is the CI job that runs the offline fixtures demo.
+> The repository does not include an active scheduled integration. The CI job runs
+> the offline fixtures demo on every push.
 
 ## Works best as a Claude Code routine
 
