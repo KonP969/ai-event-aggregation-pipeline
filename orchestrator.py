@@ -43,6 +43,14 @@ for _stream in (sys.stdout, sys.stderr):
         _stream.reconfigure(encoding="utf-8")
 
 
+def _parse_as_of(value: str) -> datetime:
+    """Zwraca polnoc w Warszawie dla deterministycznego runu/testu."""
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").replace(tzinfo=WARSAW)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("oczekiwany format YYYY-MM-DD") from exc
+
+
 def parse_args(argv=None):
     p = argparse.ArgumentParser(prog="orchestrator", description="Event Aggregation Agent")
     p.add_argument("--streams", help="lista po przecinku: ai_digital,culture_family,concert")
@@ -52,6 +60,8 @@ def parse_args(argv=None):
     p.add_argument("--discover", action="store_true", help="najpierw uruchom discovery (F2)")
     p.add_argument("--dry-run", action="store_true", help="zbuduj digest, nie wysylaj")
     p.add_argument("--fixtures", help="sciezka do JSON z eventami (offline/test, omija scraping)")
+    p.add_argument("--as-of", type=_parse_as_of, metavar="YYYY-MM-DD",
+                   help="data referencyjna dla filtrowania i digestu (domyslnie: teraz w Warszawie)")
     p.add_argument("--sources", default=str(ROOT / "config" / "sources.yaml"))
     p.add_argument("--filters", default=str(ROOT / "config" / "filters.yaml"))
     p.add_argument("--db", default=str(ROOT / "data" / "events.db"))
@@ -60,12 +70,12 @@ def parse_args(argv=None):
     return p.parse_args(argv)
 
 
-def collect_raw(args, sources, selected, budget):
+def collect_raw(args, sources, selected, budget, reference_now: datetime):
     """Zwraca (items, run_sources_meta, credits). items: (raw, source_id, source_streams)."""
     items, meta, credits = [], {}, 0
 
     if args.fixtures:
-        raws = load_fixture(args.fixtures)
+        raws = load_fixture(args.fixtures, reference_now=reference_now)
         for raw in raws:
             sid = raw.get("source", "fixture")
             items.append((raw, sid, selected))
@@ -97,7 +107,7 @@ def run(args) -> int:
         cfg["max_per_stream"] = args.max_per_stream
     selected = ([s.strip() for s in args.streams.split(",")] if args.streams else list(STREAMS))
     budget = cfg["firecrawl_budget_per_run"]
-    now = datetime.now(WARSAW)
+    now = args.as_of or datetime.now(WARSAW)
 
     # --- discovery (opcjonalnie, nie scrapuje; ST-104) ---
     discovered = []
@@ -106,7 +116,7 @@ def run(args) -> int:
         log.info("discovery: %d kandydatow (do recznego przegladu)", len(discovered))
 
     # --- scraping ---
-    items, src_meta, credits = collect_raw(args, sources, selected, budget)
+    items, src_meta, credits = collect_raw(args, sources, selected, budget, reference_now=now)
     failures = [sid for sid, m in src_meta.items() if not m.get("ok")]
 
     # --- normalize + classify ---
@@ -139,7 +149,7 @@ def run(args) -> int:
                     f"({now:%d.%m}-{end_main:%d.%m.%Y}), koncerty do {concert_days} dni")
     run_meta = {"kept": delivered_count, "sources": len([m for m in src_meta.values() if m.get('ok')]),
                 "skipped": len(failures), "credits": credits}
-    digest = format_digest(by_stream, window_label, run_meta)
+    digest = format_digest(by_stream, window_label, run_meta, now=now)
 
     # --- raport (ST-124) ---
     drop_reasons = Counter(reason for _, reason in drops)

@@ -34,7 +34,7 @@ def _fmt_price(ev: Event) -> str:
     return "?"
 
 
-def _fmt_event(ev: Event) -> str:
+def _fmt_event(ev: Event, now: datetime) -> str:
     marks = ""
     if ev.national_scope:
         marks += " \U0001F30D"
@@ -43,7 +43,6 @@ def _fmt_event(ev: Event) -> str:
     if getattr(ev, "delivery_state", "new") == "updated":
         marks += " \U0001F504"
     # wydarzenie cykliczne/wielodniowe ktore juz trwa -> pokaz "trwa do", nie przeszla date startu
-    now = datetime.now(WARSAW)
     if (ev.start_datetime and ev.end_datetime
             and ev.start_datetime.date() < now.date() <= ev.end_datetime.date()):
         when = f"trwa do {ev.end_datetime:%d %b}"
@@ -59,9 +58,11 @@ def _fmt_event(ev: Event) -> str:
     return f"- *{ev.title}*{marks} · {when} · {place} · {_fmt_price(ev)} · <{link}|Info>"
 
 
-def format_digest(by_stream: dict[str, list[Event]], window_label: str, run_meta: dict) -> str:
+def format_digest(by_stream: dict[str, list[Event]], window_label: str, run_meta: dict,
+                  now: datetime | None = None) -> str:
+    now = now or datetime.now(WARSAW)
     # Poprawny markdown: ## naglowek, ### sekcje, listy "- ", puste linie -> renderuje sie na GitHubie.
-    lines = [f"## \U0001F4C5 Kalendarz imprez: {window_label}", f"_run {datetime.now():%Y-%m-%d %H:%M}_", ""]
+    lines = [f"## \U0001F4C5 Kalendarz imprez: {window_label}", f"_run {now:%Y-%m-%d %H:%M}_", ""]
     any_events = False
     for stream, (emoji, label) in SECTION_META.items():
         items = by_stream.get(stream, [])
@@ -70,7 +71,7 @@ def format_digest(by_stream: dict[str, list[Event]], window_label: str, run_meta
         any_events = True
         lines.append(f"### {emoji} {label}")
         lines.append("")
-        lines.extend(_fmt_event(ev) for ev in items)
+        lines.extend(_fmt_event(ev, now) for ev in items)
         lines.append("")
 
     if not any_events:

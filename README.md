@@ -9,6 +9,10 @@ dates you care about, sorts them into categories, and delivers a tidy digest to
 **Slack** on a schedule. A ready-made shortlist of nice things to do. Run it as a
 **Claude Code routine** (see [Works best as a Claude Code routine](#works-best-as-a-claude-code-routine)).
 
+![Calendar-style output from the offline fixture run](docs/assets/event-calendar.svg)
+
+*Static proof image, generated from the deterministic offline fixture run dated 05 Jun 2026. The demo itself uses relative fixture dates, so its normal output stays forward-looking without updating this image.*
+
 Under the hood it is a configurable, AI-assisted pipeline that turns raw event
 listings into a ranked, deduplicated digest across three streams:
 
@@ -28,6 +32,9 @@ Requirements: **Python 3.9+**.
 ```bash
 pip install -r requirements.txt
 python orchestrator.py --fixtures fixtures/sample_events.json --dry-run
+
+# Reproduce a particular calendar exactly (useful for tests or a portfolio capture)
+python orchestrator.py --fixtures fixtures/sample_events.json --dry-run --as-of 2026-06-05
 ```
 
 This runs the **full pipeline** on sample data: normalize, classify, filter (the
@@ -37,11 +44,10 @@ deduplicate, rank and render the digest. The demo touches no external site.
 The run writes the digest to `DIGEST.md`, plus per-run artifacts (a JSON report and a
 copy of the digest) to `reports/`.
 
-> **Note on the demo output:** the sample events carry fixed dates, and the pipeline
-> keeps only events inside its forward-looking time windows (14 days by default, longer
-> for concerts). Depending on today's date, the demo may surface only the future-dated
-> events, such as the Sting tour. For a fully populated digest across all three streams,
-> see [`examples/sample_digest.md`](examples/sample_digest.md).
+> **Note on dates:** the sample fixture stores relative offsets, resolved against the
+> run's reference date. The plain demo command therefore always surfaces upcoming events.
+> Pass `--as-of YYYY-MM-DD` when you need a reproducible calendar for a test, screenshot
+> or portfolio capture; otherwise the reference date is now in `Europe/Warsaw`.
 
 The same offline demo runs in CI on every push (see the badge above).
 

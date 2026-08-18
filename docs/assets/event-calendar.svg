@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+<title id="title">AI Event Aggregation Pipeline — calendar output evidence</title>
+<desc id="desc">A calendar-style rendering of the deterministic fixture digest. Six selected events appear on dates in June 2026, with one long-range concert on 15 October. The left rail records eight inputs and six qualified outputs.</desc>
+<rect width="1600" height="1080" fill="#f5f1e8"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#1a1a1a">
+  <rect x="0" y="0" width="408" height="1080" fill="#1c262c"/>
+  <text x="54" y="84" fill="#d9f05f" font-size="14" font-weight="700" letter-spacing="2.2">AI EVENT AGGREGATION</text>
+  <text x="54" y="150" fill="#f5f1e8" font-family="Georgia, serif" font-size="49" font-weight="700" letter-spacing="-2.4">Your next</text>
+  <text x="54" y="198" fill="#f5f1e8" font-family="Georgia, serif" font-size="49" font-weight="700" letter-spacing="-2.4">good plan.</text>
+  <text x="54" y="254" fill="#b9c3c0" font-size="18">A fixture-powered agenda, not a</text>
+  <text x="54" y="281" fill="#b9c3c0" font-size="18">pile of listings.</text>
+  <line x1="54" y1="336" x2="354" y2="336" stroke="#506168"/>
+  <text x="54" y="386" fill="#b9c3c0" font-size="13" font-weight="700" letter-spacing="1.8">THE RUN</text>
+  <text x="54" y="442" fill="#d9f05f" font-size="58" font-weight="700">08</text>
+  <text x="139" y="426" fill="#f5f1e8" font-size="18" font-weight="700">raw listings</text>
+  <text x="139" y="452" fill="#b9c3c0" font-size="15">local fixture input</text>
+  <line x1="54" y1="482" x2="354" y2="482" stroke="#506168"/>
+  <text x="54" y="540" fill="#d9f05f" font-size="58" font-weight="700">06</text>
+  <text x="139" y="524" fill="#f5f1e8" font-size="18" font-weight="700">worth opening</text>
+  <text x="139" y="550" fill="#b9c3c0" font-size="15">three useful streams</text>
+  <line x1="54" y1="580" x2="354" y2="580" stroke="#506168"/>
+  <text x="54" y="640" fill="#b9c3c0" font-size="13" font-weight="700" letter-spacing="1.8">WHAT HAPPENED</text>
+  <text x="54" y="684" fill="#f5f1e8" font-size="17">Normalize</text><text x="54" y="714" fill="#f5f1e8" font-size="17">Classify</text><text x="54" y="744" fill="#f5f1e8" font-size="17">Filter</text><text x="54" y="774" fill="#f5f1e8" font-size="17">Rank &amp; format</text>
+  <path d="M272 678h34M272 708h34M272 738h34M272 768h34" stroke="#d9f05f" stroke-width="3"/>
+  <text x="54" y="978" fill="#b9c3c0" font-size="13">OFFLINE FIXTURE RUN</text><text x="54" y="1004" fill="#f5f1e8" font-size="15">Pinned to 05 Jun 2026.</text><text x="54" y="1028" fill="#b9c3c0" font-size="13">No network · no secrets · no delivery</text>
+  <text x="472" y="84" fill="#7a776f" font-size="14" font-weight="700" letter-spacing="2">CALENDAR OUTPUT / 05—19 JUNE 2026</text>
+  <text x="472" y="144" font-family="Georgia, serif" font-size="53" font-weight="700" letter-spacing="-2.6">A week with somewhere to go.</text><text x="472" y="181" fill="#67645d" font-size="18">The pipeline turns a mixed event feed into a compact, delivery-ready agenda.</text>
+  <rect x="472" y="231" width="1078" height="595" fill="#fffdf7" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="626" y1="231" x2="626" y2="826" stroke="#d7d0c3"/><line x1="780" y1="231" x2="780" y2="826" stroke="#d7d0c3"/><line x1="934" y1="231" x2="934" y2="826" stroke="#d7d0c3"/><line x1="1088" y1="231" x2="1088" y2="826" stroke="#d7d0c3"/><line x1="1242" y1="231" x2="1242" y2="826" stroke="#d7d0c3"/><line x1="1396" y1="231" x2="1396" y2="826" stroke="#d7d0c3"/><line x1="472" y1="300" x2="1550" y2="300" stroke="#1a1a1a"/>
+  <text x="492" y="275" fill="#77736b" font-size="13" font-weight="700">FRI</text><text x="646" y="275" fill="#77736b" font-size="13" font-weight="700">SAT</text><text x="800" y="275" fill="#77736b" font-size="13" font-weight="700">SUN</text><text x="954" y="275" fill="#77736b" font-size="13" font-weight="700">MON</text><text x="1108" y="275" fill="#77736b" font-size="13" font-weight="700">TUE</text><text x="1262" y="275" fill="#77736b" font-size="13" font-weight="700">WED</text><text x="1416" y="275" fill="#77736b" font-size="13" font-weight="700">THU</text>
+  <text x="492" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">05</text><text x="646" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">06</text><text x="800" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">07</text><text x="954" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">08</text><text x="1108" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">09</text><text x="1262" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">10</text><text x="1416" y="337" fill="#77736b" font-family="Georgia, serif" font-size="28">11</text>
+  <rect x="800" y="360" width="118" height="128" fill="#f2d5c3"/><text x="814" y="389" fill="#b23f28" font-size="12" font-weight="700">FAMILY</text><text x="814" y="418" font-size="16" font-weight="700">Bal dla dzieci</text><text x="814" y="442" font-size="14">10:00 · Gdansk</text><text x="814" y="465" fill="#77736b" font-size="13">free</text>
+  <rect x="1262" y="360" width="118" height="128" fill="#dceabc"/><text x="1276" y="389" fill="#547122" font-size="12" font-weight="700">AI / DIGITAL</text><text x="1276" y="418" font-size="15" font-weight="700">AI &amp; Data</text><text x="1276" y="440" font-size="15" font-weight="700">Engineering</text><text x="1276" y="465" fill="#77736b" font-size="13">18:00 · free</text>
+  <rect x="1262" y="508" width="118" height="96" fill="#dce7f0"/><text x="1276" y="537" fill="#426a88" font-size="12" font-weight="700">CONCERT</text><text x="1276" y="565" font-size="15" font-weight="700">Cover Band</text><text x="1276" y="588" fill="#77736b" font-size="13">20:00 · Poznan</text>
+  <text x="492" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">12</text><text x="646" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">13</text><text x="800" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">14</text><text x="954" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">15</text><text x="1108" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">16</text><text x="1262" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">17</text><text x="1416" y="667" fill="#77736b" font-family="Georgia, serif" font-size="28">18</text>
+  <rect x="492" y="690" width="118" height="105" fill="#dceabc"/><text x="506" y="719" fill="#547122" font-size="12" font-weight="700">AI / DIGITAL</text><text x="506" y="748" font-size="15" font-weight="700">Data Science</text><text x="506" y="770" font-size="15" font-weight="700">Summit</text><text x="506" y="790" fill="#77736b" font-size="13">Warszawa · 499 zl+</text>
+  <rect x="954" y="690" width="118" height="105" fill="#dce7f0"/><text x="968" y="719" fill="#426a88" font-size="12" font-weight="700">CONCERT</text><text x="968" y="748" font-size="15" font-weight="700">Dawid</text><text x="968" y="770" font-size="15" font-weight="700">Podsiadlo</text><text x="968" y="790" fill="#77736b" font-size="13">Sopot · 120 zl+</text>
+  <rect x="472" y="862" width="1078" height="147" fill="#e7e1d6"/><text x="504" y="900" fill="#77736b" font-size="13" font-weight="700" letter-spacing="1.7">LONG-RANGE RADAR</text><text x="504" y="948" font-family="Georgia, serif" font-size="28" font-weight="700">15 OCT · Sting — 3.0 Tour</text><text x="504" y="979" fill="#67645d" font-size="16">Warszawa, PGE Narodowy · 250 zl+ · retained as a national-scope concert</text><text x="1468" y="948" fill="#426a88" font-size="17" font-weight="700" text-anchor="end">CONCERT / NATIONAL</text>
+</g></svg>
