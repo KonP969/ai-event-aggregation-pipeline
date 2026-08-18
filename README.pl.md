@@ -10,6 +10,10 @@ digest na **Slacka**. Gotowa krótka lista pomysłów na miłe spędzenie czasu.
 to jako **rutynę Claude Code**
 (patrz [Najlepiej działa jako rutyna Claude Code](#najlepiej-działa-jako-rutyna-claude-code)).
 
+![Kalendarzowy output z offline fixture runu](docs/assets/event-calendar.svg)
+
+*Statyczny obraz dowodowy wygenerowany z deterministycznego fixture runu z 05.06.2026. Samo demo używa względnych dat fixture’ów, więc jego zwykły output pozostaje przyszłościowy bez aktualizowania tego obrazu.*
+
 Pod maską to konfigurowalny, wspierany przez AI pipeline, który zamienia surowe listy
 wydarzeń w uszeregowany, zdeduplikowany digest w trzech strumieniach:
 
@@ -30,6 +34,9 @@ Wymagania: **Python 3.9+**.
 ```bash
 pip install -r requirements.txt
 python orchestrator.py --fixtures fixtures/sample_events.json --dry-run
+
+# Dokładnie odtwórz konkretny kalendarz (test lub portfolio)
+python orchestrator.py --fixtures fixtures/sample_events.json --dry-run --as-of 2026-06-05
 ```
 
 Uruchamia **pełny pipeline** na danych przykładowych: normalizacja, klasyfikacja,
@@ -40,11 +47,10 @@ zewnętrznej strony.
 Run zapisuje digest do `DIGEST.md`, a artefakty runu (raport JSON i kopię digestu) do
 `reports/`.
 
-> **Uwaga o wyniku demo:** przykładowe wydarzenia mają stałe daty, a pipeline zostawia
-> tylko te w oknach czasowych patrzących w przód (domyślnie 14 dni, dłużej dla
-> koncertów). Zależnie od dzisiejszej daty demo pokaże czasem tylko wydarzenia z
-> przyszłą datą, jak trasa Stinga. Pełny, zapełniony digest we wszystkich trzech
-> strumieniach zobaczysz w [`examples/sample_digest.md`](examples/sample_digest.md).
+> **Uwaga o datach:** fixture przechowuje przesunięcia względne, rozwiązywane wobec
+> daty referencyjnej runu. Zwykłe polecenie demo zawsze pokaże więc nadchodzące wydarzenia.
+> Użyj `--as-of RRRR-MM-DD`, gdy potrzebujesz odtwarzalnego kalendarza do testu,
+> screenshota lub portfolio; bez parametru datą referencyjną jest bieżący czas w `Europe/Warsaw`.
 
 To samo demo offline działa w CI przy każdym pushu (patrz badge u góry).
 
